@@ -1,13 +1,14 @@
 import os
 import sys
-from src.exception import CustomException
-from src.logger import logging
-import pandas as pd
 from dataclasses import dataclass
+import pandas as pd
 from sklearn.model_selection import train_test_split
 
+from src.exception import CustomException
+from src.logger import logging
 from src.components.data_transformation import DataTransformation
-from src.components.data_transformation import DataTransformationConfig
+from src.components.model_trainer import ModelTrainer
+
 
 @dataclass
 class DataIngestionConfig:
@@ -18,17 +19,14 @@ class DataIngestionConfig:
 
 class DataIngestion:
     def __init__(self):
-        # ingestion config stores all the three paths of the data
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self):
-        """Reads data from external sources, which can be from an external 
-        database, and the external database configs can be set up in utils.py
-        """
         logging.info('Entered the data ingestion method or component')
         try:
-            df = pd.read_csv('notebook/data/stud.csv')
+            df = pd.read_csv('notebook/data/stud.csv')  # Use forward slashes
             logging.info('Read the dataset as DataFrame')
+
             os.makedirs(os.path.dirname(
                 self.ingestion_config.train_data_path), exist_ok=True)
 
@@ -56,8 +54,16 @@ class DataIngestion:
 
 
 if __name__ == "__main__":
-    obj = DataIngestion()
-    train_data,test_data=obj.initiate_data_ingestion()
-    
-    data_transformation=DataTransformation()
-    data_transformation.initiate_data_transformation(train_data,test_data)
+    try:
+        obj = DataIngestion()
+        train_data, test_data = obj.initiate_data_ingestion()
+
+        data_transformation = DataTransformation()
+        train_arr, test_arr, _ = data_transformation.initiate_data_transformation(
+            train_data, test_data)
+
+        modeltrainer = ModelTrainer()
+        print(modeltrainer.initiate_model_trainer(train_arr, test_arr))
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
+        sys.exit(1)

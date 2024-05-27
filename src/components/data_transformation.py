@@ -10,7 +10,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_object
+from src.utils import evaluate_models, save_object
 
 
 @dataclass
@@ -60,7 +60,7 @@ class DataTransformation:
                     ("num_pipeline", num_pipeline, numerical_columns),
                     ("cat_pipeline", cat_pipeline, categorical_columns),
                 ]
-            )
+            )  # The result is a single array with all transformed features concatenated together
 
             return preprocessor
         except Exception as e:
