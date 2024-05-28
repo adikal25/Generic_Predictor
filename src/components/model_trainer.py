@@ -21,7 +21,7 @@ from src.utils import evaluate_models, save_object
 
 @dataclass
 class ModelTrainerConfig:
-    trained_model_file_path = os.path.join("artifact", "model.pkl")
+    trained_model_file_path: str = os.path.join("artifact", "model.pkl")
 
 
 class ModelTrainer:
@@ -50,13 +50,51 @@ class ModelTrainer:
                 "AdaBoostRegressor": AdaBoostRegressor()
             }
 
+            params = {
+                "RandomForest": {
+                    'n_estimators': [2, 4, 8, 16, 32, 64, 128, 256],
+                    'max_depth': [10, None],
+                    'min_samples_split': [2, 5]
+                },
+                "DecisionTree": {
+                    'max_depth': [10, None],
+                    'min_samples_split': [2, 5]
+                },
+                "Gradient Boosting": {
+                    'n_estimators': [2, 4, 8, 16, 32, 64, 128, 256],
+                    'learning_rate': [0.01, 0.1],
+                    'max_depth': [3, 5]
+                },
+                "Linear Regression": {
+                    'fit_intercept': [True, False]
+                },
+                "K-Neighbors Regressor": {
+                    'n_neighbors': [3, 5],
+                    'weights': ['uniform', 'distance']
+                },
+                "XGBRegressor": {
+                    'n_estimators': [2, 4, 8, 16, 32, 64, 128, 256],
+                    'learning_rate': [0.01, 0.1],
+                    'max_depth': [3, 5]
+                },
+                "CatBoostRegressor": {
+                    'iterations': [2, 4, 8, 16, 32, 64, 128, 256],
+                    'learning_rate': [0.01, 0.1],
+                    'depth': [4, 6]
+                },
+                "AdaBoostRegressor": {
+                    'n_estimators': [2, 4, 8, 16, 32, 64, 128, 256],
+                    'learning_rate': [0.01, 0.1]
+                }
+            }
+
             model_report: dict = evaluate_models(
-                X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models
+                X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models, param=params
             )
 
-            best_model_score = max(sorted(model_report.values()))
-            best_model_name = list(models.keys())[list(
-                model_report.values()).index(best_model_score)]
+            best_model_score = max(model_report.values())
+            best_model_name = [
+                name for name, score in model_report.items() if score == best_model_score][0]
             best_model = models[best_model_name]
 
             if best_model_score < 0.6:
@@ -72,4 +110,5 @@ class ModelTrainer:
             return r2
 
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(str(e), sys)
+
