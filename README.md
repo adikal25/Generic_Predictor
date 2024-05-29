@@ -56,6 +56,6 @@ Contributions to the project are welcome! To contribute:
 4. Push to the branch: `git push origin feature/my-feature`
 5. Submit a pull request.
 
-## License
+## References
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+krish Naik:https://github.com/krishnaik06/mlproject.git
