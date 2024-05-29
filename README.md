@@ -1,4 +1,4 @@
-# Workflow
+# ML Workflow
 
 ## Overview
 
@@ -20,6 +20,7 @@ The project structure is organized as follows:
 - **README.md:** This file, providing an overview of the project.
 - **requirements.txt:** Lists project dependencies.
 - **setup.py:** Package setup file.
+- **Dockerfile:** Docker configuration file.
 
 ## Setup and Installation
 
@@ -37,6 +38,26 @@ To set up the project locally:
 3. Preprocess the data using provided scripts.
 4. Train and evaluate models using the updated application logic.
 5. Deploy trained models for real-world use.
+
+## Docker Setup
+
+To containerize the project using Docker:
+
+1. Ensure Docker is installed on your machine. You can download it from [Docker's official website](https://www.docker.com/get-started).
+
+2. Build the Docker image:
+
+    ```sh
+    docker build -t <imagename>.
+    ```
+
+3. Run the Docker container:
+
+    ```sh
+    docker run -p 5000:5000 <imagename>
+    ```
+
+4. Access the application in your web browser at `http://localhost:5000`.
 
 ## Configuration
 
@@ -58,4 +79,8 @@ Contributions to the project are welcome! To contribute:
 
 ## References
 
-krish Naik:https://github.com/krishnaik06/mlproject.git
+krish Naik: [https://github.com/krishnaik06/mlproject.git](https://github.com/krishnaik06/mlproject.git)
+
+---
+
+
