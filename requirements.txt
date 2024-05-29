@@ -6,6 +6,5 @@ scikit-learn
 xgboost
 catboost
 dill
-pickle
-flask
+flask==2.0.3
 -e .
