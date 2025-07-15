@@ -67,20 +67,6 @@ Ensure all necessary configurations are set up correctly:
 - Provide data source credentials.
 - Adjust model training parameters as needed.
 
-## Contributing
-
-Contributions to the project are welcome! To contribute:
-
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/my-feature`
-3. Commit your changes: `git commit -am 'Add new feature'`
-4. Push to the branch: `git push origin feature/my-feature`
-5. Submit a pull request.
-
-## References
-
-krish Naik: [https://github.com/krishnaik06/mlproject.git](https://github.com/krishnaik06/mlproject.git)
-
 ---
 
 
